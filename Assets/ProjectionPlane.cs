@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace Apt.Unity.Projection
 {
@@ -13,7 +13,7 @@ namespace Apt.Unity.Projection
         public bool LockAspectRatio = true;
         [Header("Visualization")]
         public bool DrawGizmo = true;
-        
+
         //Bottom-left, Bottom-right top-left, top-right corners of plane respectively
         public Vector3 BottomLeft { get; private set; }
         public Vector3 BottomRight { get; private set; }
@@ -47,32 +47,32 @@ namespace Apt.Unity.Projection
                 Gizmos.DrawLine(planeCenter, planeCenter + DirNormal);
             }
         }
-        
+
         void Update()
         {
             //Do aspect ratio constraints
-            if(LockAspectRatio)
+            if (LockAspectRatio)
             {
-                if(AspectRatio.x != previousAspectRatio.x)
+                if (AspectRatio.x != previousAspectRatio.x)
                 {
                     Size.y = Size.x / AspectRatio.x * AspectRatio.y;
                     //make X dominant axis - i.e. if both change, X takes precedence
                     previousAspectRatio.y = AspectRatio.y;
                 }
 
-                if(AspectRatio.y != previousAspectRatio.y)
+                if (AspectRatio.y != previousAspectRatio.y)
                 {
                     Size.x = Size.y / AspectRatio.y * AspectRatio.x;
                 }
 
-                if(Size.x != previousSize.x)
+                if (Size.x != previousSize.x)
                 {
                     Size.y = Size.x / AspectRatio.x * AspectRatio.y;
                     //make X dominant axis - i.e. if both change, X takes precedence
                     previousSize.y = Size.y;
                 }
 
-                if(Size.y != previousSize.y)
+                if (Size.y != previousSize.y)
                 {
                     Size.x = Size.y / AspectRatio.y * AspectRatio.x;
                 }
