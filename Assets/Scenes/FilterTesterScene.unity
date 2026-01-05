@@ -475,7 +475,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6574708040732902193, guid: 35f79e28dbabdcb72b779a58e4cf3a92, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6574708040732902193, guid: 35f79e28dbabdcb72b779a58e4cf3a92, type: 3}
       propertyPath: showOneEuro
@@ -489,11 +489,26 @@ PrefabInstance:
       propertyPath: showMovingAverage
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6574708040732902193, guid: 35f79e28dbabdcb72b779a58e4cf3a92, type: 3}
+      propertyPath: showSingleExponential
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35f79e28dbabdcb72b779a58e4cf3a92, type: 3}
+--- !u!114 &1651111239 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6697262281463451045, guid: 35f79e28dbabdcb72b779a58e4cf3a92, type: 3}
+  m_PrefabInstance: {fileID: 1598916223}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c3b47136dab4bb3bdc9899ee8a4ad30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1710221325
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -505,6 +520,18 @@ PrefabInstance:
     - target: {fileID: 1104810300470626676, guid: 64b982b258c0a1387b5d03e8f6786dbe, type: 3}
       propertyPath: m_Name
       value: Face Detector
+      objectReference: {fileID: 0}
+    - target: {fileID: 1104810300470626676, guid: 64b982b258c0a1387b5d03e8f6786dbe, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2156611272426543629, guid: 64b982b258c0a1387b5d03e8f6786dbe, type: 3}
+      propertyPath: filter
+      value: 
+      objectReference: {fileID: 1651111239}
+    - target: {fileID: 2156611272426543629, guid: 64b982b258c0a1387b5d03e8f6786dbe, type: 3}
+      propertyPath: filterType
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5319262091783393671, guid: 64b982b258c0a1387b5d03e8f6786dbe, type: 3}
       propertyPath: m_LocalPosition.x
