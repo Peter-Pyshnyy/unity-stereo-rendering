@@ -88,6 +88,17 @@ namespace Tutorial_5
     
         private void ApplyILD(float[] data, int channels)
         {
+            float theta = angle * (float)Math.PI / 180f;
+            float tmp = Mathf.Sin(theta);
+
+            // channgels always 2 (stereo); data interleaved LRLRLR...
+            for (int i = 0; i < data.Length; i += 2)
+            {
+                // Left channel
+                data[i] *= Mathf.Clamp01(0.5f - tmp * 0.5f);
+                // Right channel
+                data[i + 1] *= Mathf.Clamp01(0.5f + tmp * 0.5f);
+            }
         }
 
      
