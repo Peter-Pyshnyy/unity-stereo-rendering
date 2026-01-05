@@ -34,7 +34,21 @@ namespace Tutorial_4
 
         public Vector3 MovingAverage(Vector3 value)
         {
-            return value;
+            _movingAverageBuffer.Enqueue(value);
+            
+            if (_movingAverageBuffer.Count > samples)
+            {
+                _movingAverageBuffer.Dequeue();
+            }
+
+            Vector3 sum = Vector3.zero;
+
+            foreach (var v in _movingAverageBuffer)
+            {
+                sum += v;
+            }
+
+            return sum / _movingAverageBuffer.Count;
         }
 
         public Vector3 SingleExponential(Vector3 value)

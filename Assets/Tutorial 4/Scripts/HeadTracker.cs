@@ -71,16 +71,29 @@ namespace Tutorial_4
 
         private void SetCameraPosition(Detection face)
         {
+            // S_real = ipd (in meters)
+            // S_img = ipd (in pixels)
+            // e = point between eyes in camera image (in pixels)
+            // c = center of camera image (in pixels)
+
+            Vector2 leftEye_img = new Vector2(_webCamTexture.width * face.leftEye.x, _webCamTexture.height * (1.0f - face.leftEye.y));
+            Vector2 rightEye_img = new Vector2(_webCamTexture.width * face.rightEye.x, _webCamTexture.height * (1.0f - face.rightEye.y));
+
+            float S_real = ipd;
+            float S_img = Vector2.Distance(leftEye_img, rightEye_img);
+            Vector2 e = leftEye_img + 0.5f * (rightEye_img - leftEye_img);
+            Vector2 c = new Vector2(_webCamTexture.width * 0.5f, _webCamTexture.height * 0.5f);
+
+            float z = -(focalLength * S_real) / S_img;
+            float x = ((e.x - c.x) * z) / focalLength;
+            float y = -((e.y - c.y) * z) / focalLength;
+
+
+
             // template code:
-            DetectedFace = face.leftEye;
+            DetectedFace = new Vector3(x, y, z);
 
             // Calculate eye positions in pixel coordinates
-            Vector2 leftEyePC = new Vector2(_webCamTexture.width * face.leftEye.x, _webCamTexture.height * (1.0f - face.leftEye.y));
-            Vector2 rightEyePC = new Vector2(_webCamTexture.width * face.rightEye.x, _webCamTexture.height * (1.0f - face.rightEye.y));
-
-            print("Left eye position: " + leftEyePC);
-            print("Right eye position: " + rightEyePC);
-            print("ipd in UV: " + Vector3.Distance(leftEyePC, rightEyePC));
         }
     }
 }
