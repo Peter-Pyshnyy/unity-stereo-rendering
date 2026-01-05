@@ -175,6 +175,14 @@ PrefabInstance:
       propertyPath: angle
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6338592809617130475, guid: 39cd5cf3c99e7d31c80a92e403753a60, type: 3}
+      propertyPath: useScene
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6338592809617130475, guid: 39cd5cf3c99e7d31c80a92e403753a60, type: 3}
+      propertyPath: currentEffect
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7053967720664440190, guid: 39cd5cf3c99e7d31c80a92e403753a60, type: 3}
       propertyPath: m_Name
       value: AudioController
