@@ -81,6 +81,9 @@ namespace Tutorial_4
 
             float S_real = ipd;
             float S_img = Vector2.Distance(leftEye_img, rightEye_img);
+
+            print("S_img: " + S_img);
+
             Vector2 e = leftEye_img + 0.5f * (rightEye_img - leftEye_img);
             Vector2 c = new Vector2(_webCamTexture.width * 0.5f, _webCamTexture.height * 0.5f);
 

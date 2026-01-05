@@ -474,6 +474,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6574708040732902193, guid: 35f79e28dbabdcb72b779a58e4cf3a92, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6574708040732902193, guid: 35f79e28dbabdcb72b779a58e4cf3a92, type: 3}
       propertyPath: showOneEuro
       value: 0
       objectReference: {fileID: 0}
@@ -483,7 +487,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6574708040732902193, guid: 35f79e28dbabdcb72b779a58e4cf3a92, type: 3}
       propertyPath: showMovingAverage
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

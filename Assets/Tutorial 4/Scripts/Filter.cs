@@ -53,12 +53,18 @@ namespace Tutorial_4
 
         public Vector3 SingleExponential(Vector3 value)
         {
-            return value;
+            var filtered = seAlpha * value + (1f - seAlpha) * _singleExponential;
+            _singleExponential = filtered;
+            return filtered;
         }
 
         public Vector3 DoubleExponential(Vector3 value)
         {
-            return value;
+            var newLevel = deAlpha * value + (1f - deAlpha) * (_doubleExponential + _trend);
+            var newTrend = deBeta * (newLevel - _doubleExponential) + (1f - deBeta) * _trend;
+            _doubleExponential = newLevel;
+            _trend = newTrend;
+            return _doubleExponential + _trend;
         }
 
         public Vector3 OneEuro(Vector3 value)
