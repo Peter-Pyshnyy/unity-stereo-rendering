@@ -12,10 +12,10 @@ namespace Tutorial_4
         [SerializeField] private float threshold = 0.5f;
         [SerializeField] private ResourceSet resources;
         [Tooltip("Focal length of your webcam in pixels")]
-        [SerializeField] private int focalLength = 492;
+        [SerializeField] private int focalLength = 799;
         [Tooltip("Distance between your eyes in meters.")]
-        [SerializeField] private float ipd = 0.064f;
-
+        [SerializeField] private float ipd = 0.061f;
+        // distance to screen = 0.56m
         public Vector3 DetectedFace { get; private set; }
 
         private FaceDetector _detector;
@@ -73,6 +73,14 @@ namespace Tutorial_4
         {
             // template code:
             DetectedFace = face.leftEye;
+
+            // Calculate eye positions in pixel coordinates
+            Vector2 leftEyePC = new Vector2(_webCamTexture.width * face.leftEye.x, _webCamTexture.height * (1.0f - face.leftEye.y));
+            Vector2 rightEyePC = new Vector2(_webCamTexture.width * face.rightEye.x, _webCamTexture.height * (1.0f - face.rightEye.y));
+
+            print("Left eye position: " + leftEyePC);
+            print("Right eye position: " + rightEyePC);
+            print("ipd in UV: " + Vector3.Distance(leftEyePC, rightEyePC));
         }
     }
 }

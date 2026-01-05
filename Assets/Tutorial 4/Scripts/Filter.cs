@@ -19,8 +19,11 @@ namespace Tutorial_4
 
         [Header("One Euro")] public float frequency = 60f; 
 
-        // TODO put your temp values for filters here
-        
+        // temp values for filters
+        private readonly Queue<Vector3> _movingAverageBuffer = new();
+        private Vector3 _singleExponential;
+        private Vector3 _doubleExponential;
+        private Vector3 _trend = Vector3.zero;
 
         private OneEuroFilter<Vector3> _oneEuro;
 
@@ -29,9 +32,6 @@ namespace Tutorial_4
             _oneEuro = new OneEuroFilter<Vector3>(frequency);
         }
 
-        // TODO implement these filters
-        // you can introduce new properties above, below the comment
-        
         public Vector3 MovingAverage(Vector3 value)
         {
             return value;

@@ -631,7 +631,7 @@
     "m_FunctionName": "LensDistortion",
     "m_FunctionSource": "",
     "m_FunctionSourceUsePragmas": true,
-    "m_FunctionBody": "// calculate radius\n// we can skip sqrt to save performance\nfloat r2 = dot(uv_in, uv_in);\n\n// distortion\nfloat2 uv_dist = uv_in * (1.0 + k1 * r2 + k2 * r2 * r2);\n\n// remap -1...1 to 0...1\nif (any(uv_dist < float2(-1.0f, -1.0f))) {\n\tuv_out = float2(1.1f, 1.1f);\t\n\treturn;\n}\nuv_out = uv_dist * 0.5 + 0.5;"
+    "m_FunctionBody": "uv_out = (uv_in + 1) / 2;"
 }
 
 {

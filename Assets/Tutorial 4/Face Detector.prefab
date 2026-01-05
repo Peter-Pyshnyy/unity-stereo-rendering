@@ -62,6 +62,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30b9bf4a3d4ce41e99046f7a9bb091f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filterType: 4
+  filterType: 0
   headTracker: {fileID: 6689173973741516093}
   filter: {fileID: 0}
