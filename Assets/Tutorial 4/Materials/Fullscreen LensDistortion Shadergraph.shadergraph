@@ -181,7 +181,7 @@
     ],
     "synonyms": [],
     "m_Precision": 0,
-    "m_PreviewExpanded": true,
+    "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
     "m_CustomColors": {
@@ -285,7 +285,7 @@
     ],
     "synonyms": [],
     "m_Precision": 0,
-    "m_PreviewExpanded": true,
+    "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
     "m_CustomColors": {
@@ -492,7 +492,7 @@
     ],
     "synonyms": [],
     "m_Precision": 0,
-    "m_PreviewExpanded": true,
+    "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
     "m_CustomColors": {
@@ -596,10 +596,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -512.9999389648438,
-            "y": 200.0,
-            "width": 237.00006103515626,
-            "height": 141.99996948242188
+            "x": -513.0,
+            "y": 201.0,
+            "width": 237.0,
+            "height": 326.0
         }
     },
     "m_Slots": [
@@ -631,7 +631,7 @@
     "m_FunctionName": "LensDistortion",
     "m_FunctionSource": "",
     "m_FunctionSourceUsePragmas": true,
-    "m_FunctionBody": "uv_out = (uv_in + 1) / 2;"
+    "m_FunctionBody": "float r2 = dot(uv_in, uv_in);\n\nfloat2 uv_dist = uv_in * (1.0 + k1 * r2 + k2 * r2 * r2);\n\nif (any(uv_dist < float2(-1.0, -1.0))) {\n\tuv_out = float2(1.1, 1.1);\n\treturn;\n}\n\nuv_out = (uv_dist + 1.0) / 2.0;"
 }
 
 {
@@ -659,7 +659,7 @@
     ],
     "synonyms": [],
     "m_Precision": 0,
-    "m_PreviewExpanded": true,
+    "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
     "m_CustomColors": {
@@ -768,7 +768,7 @@
         "blit"
     ],
     "m_Precision": 0,
-    "m_PreviewExpanded": true,
+    "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
     "m_CustomColors": {

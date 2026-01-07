@@ -126,8 +126,8 @@ Material:
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
-    - _k1: 0
-    - _k2: 0
+    - _k1: -0.03
+    - _k2: 0.14
     - _offset_blue: 0
     - _offset_green: 0
     - _offset_red: -0.03
