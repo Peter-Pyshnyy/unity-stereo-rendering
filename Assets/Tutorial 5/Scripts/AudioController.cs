@@ -101,48 +101,56 @@ namespace Tutorial_5
             }
         }
 
-     
+
         private void ApplyITD(float[] data, int channels)
         {
+            // 1. Physics Math (Woodworth Model)
+            // We calculate the required delay in seconds based on the head radius and angle
             float r = 0.1f; // head radius in meters
             float C = 343f; // speed of sound in m/s
-            float theta = angle * (float)Math.PI / 180f;
-            float delay = r * (theta + Mathf.Sin(theta)) / C;
-            float delayInSamples = delay * sampleRate;
-            int shift = (int)Mathf.Abs(delayInSamples);
 
-            // left and right delay samples
-            if (delayInSamples < 0) { 
-                for (int i = 0; i < shift; i++)
-                {
-                    leftDelayBuffer[i] = 0.0f;
-                }
-                for (int i = 0; i < bufferSize - shift; i++)
-                {
-                    leftDelayBuffer[i + shift] = data[i * 2];
-                }
-            } else
-            {
-                for (int i = 0; i < shift; i++)
-                {
-                    rightDelayBuffer[i] = 0.0f;
-                }
-                for (int i = 0; i < bufferSize - shift; i++)
-                {
-                    rightDelayBuffer[i + shift] = data[i * 2 + 1];
-                }
-            }
+            // Convert angle to Radians (using Mathf.Deg2Rad is cleaner than PI/180)
+            float thetaRad = angle * Mathf.Deg2Rad;
+            float absTheta = Mathf.Abs(thetaRad);
 
+            // Formula: Time = (r/c) * (theta + sin(theta))
+            float delaySeconds = (r / C) * (absTheta + Mathf.Sin(absTheta));
+
+            // Convert time to samples
+            int delaySamples = (int)(delaySeconds * sampleRate);
+
+            // Safety clamp to prevent reading outside the buffer
+            delaySamples = Mathf.Clamp(delaySamples, 0, bufferSize - 1);
+
+            // 2. Determine which ear is delayed
+            // If angle is positive (Right), the Left ear is delayed.
+            // If angle is negative (Left), the Right ear is delayed.
+            int leftDelay = (angle > 0) ? delaySamples : 0;
+            int rightDelay = (angle < 0) ? delaySamples : 0;
+
+            // 3. Process Audio (Circular Buffer)
             for (int i = 0; i < data.Length; i += 2)
             {
-                // Left channel
-                data[i] = leftDelayBuffer[leftReadIndex];
-                leftReadIndex = (leftReadIndex + 1) % bufferSize;
-                // Right channel
-                data[i + 1] = rightDelayBuffer[rightReadIndex];
-                rightReadIndex = (rightReadIndex + 1) % bufferSize;
-            }
+                // --- WRITE STEP ---
+                // Store the current raw audio into the history buffers
+                leftDelayBuffer[leftWriteIndex] = data[i];
+                rightDelayBuffer[rightWriteIndex] = data[i + 1];
 
+                // --- READ STEP ---
+                // Calculate where to read from: "Current Write Position" minus "Delay"
+                // We add bufferSize before modulo (%) to handle wrapping around negative numbers
+                int lReadIndex = (leftWriteIndex - leftDelay + bufferSize) % bufferSize;
+                int rReadIndex = (rightWriteIndex - rightDelay + bufferSize) % bufferSize;
+
+                // Apply the delayed samples to the output
+                data[i] = leftDelayBuffer[lReadIndex];
+                data[i + 1] = rightDelayBuffer[rReadIndex];
+
+                // --- ADVANCE ---
+                // Move the write pointers forward
+                leftWriteIndex = (leftWriteIndex + 1) % bufferSize;
+                rightWriteIndex = (rightWriteIndex + 1) % bufferSize;
+            }
         }
 
         private void UpdateParamsFromScene()
