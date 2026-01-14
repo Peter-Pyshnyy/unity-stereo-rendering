@@ -12,10 +12,10 @@ namespace Tutorial_5
         [Tooltip("Use position of player and audio source in the scene instead of the stereo pan slider")]
         [SerializeField] private bool useScene;
         
-        [Range(0, 1)]
-        [SerializeField] private float volume = 1f;
-        [Range(-90, 90)] [Tooltip("0 is left, 1 is right")]
-        [SerializeField] private float angle = 0.5f;
+        //[Range(0, 1)]
+        //[SerializeField] private float volume = 1f;
+        //[Range(-90, 90)] [Tooltip("0 is left, 1 is right")]
+        //[SerializeField] private float angle = 0.5f;
         [Tooltip("Maximum ITD delay in milliseconds")]
         [SerializeField] private float maxHaasDelay = 20f;
         [SerializeField] private int sampleRate = 44100;
@@ -35,6 +35,10 @@ namespace Tutorial_5
         private int rightReadIndex = 0;
         private int leftDelaySamples;
         private int rightDelaySamples;
+
+        private float volume = 1f; // overall volume
+        private float angle = 0f; // angle in degrees
+        private float soundFalloffDistance = 15f; // distance at which sound is at zero volume
 
         void Start()
         {
@@ -155,6 +159,23 @@ namespace Tutorial_5
 
         private void UpdateParamsFromScene()
         {
+            Vector3 acPos = this.transform.position;
+            Vector3 playerPos = player.position;
+            Vector3 playerForward = player.transform.forward;
+            Vector3 direction = playerPos - acPos;
+
+            float distance = direction.magnitude;
+            this.volume = SoundFallow(distance);
+
+            direction.Normalize();
+            float angleNew = -Vector3.SignedAngle(playerForward, direction, Vector3.up);
+            this.angle = angleNew;
+        }
+
+        private float SoundFallow(float d)
+        {
+            float y = 1 - (d / soundFalloffDistance); // linear falloff
+            return Mathf.Clamp01(y);
         }
 
         private void OnValidate()
